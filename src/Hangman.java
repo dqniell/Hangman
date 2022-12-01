@@ -1,7 +1,4 @@
-import java.util.Locale;
 import java.util.Scanner;
-import java.util.Random;
-
 public class Hangman {
     private String[] topicList = {"SCHOOL SUBJECT", "COLOR", "HOLIDAY", "ANIMAL", "FRUIT"};
     private String[] subjWords = {"MATH", "SCIENCE", "ENGLISH", "GYM"};
@@ -16,22 +13,39 @@ public class Hangman {
     private int wrongCounter;
     private int guessesLeft;
 
-    public Hangman(){}
+    public Hangman(){
+        topic = "";
+        word = "";
+        blankWord = "";
+        wrongGuesses = "";
+        wrongCounter = 0;
+        guessesLeft = 0;
+    }
+
+    public Hangman(String[] subwords) {
+        topic = "";
+        word = "";
+        blankWord = "";
+        wrongGuesses = "";
+        wrongCounter = 0;
+        guessesLeft = 0;
+        subjWords = subwords;
+    }
 
     Scanner scan = new Scanner(System.in);
 
     private void randomWord(){
-        topic = topicList[new Random().nextInt(topicList.length)].toUpperCase();
+        topic = topicList[(int) (Math.random() * topicList.length)].toUpperCase();
         if(topic.equals("SCHOOL SUBJECT")){
-            word = subjWords[new Random().nextInt(subjWords.length)].toUpperCase();
+            word = subjWords[(int) (Math.random() * subjWords.length)].toUpperCase();
         } else if(topic.equals("COLOR")){
-            word = colorWords[new Random().nextInt(colorWords.length)].toUpperCase();
+            word = colorWords[(int) (Math.random() * colorWords.length)].toUpperCase();
         } else if(topic.equals("HOLIDAY")){
-            word = holidayWords[new Random().nextInt(holidayWords.length)].toUpperCase();
+            word = holidayWords[(int) (Math.random() * holidayWords.length)].toUpperCase();
         } else if(topic.equals("ANIMAL")){
-            word = animalWords[new Random().nextInt(animalWords.length)].toUpperCase();
+            word = animalWords[(int) (Math.random() * animalWords.length)].toUpperCase();
         } else if(topic.equals("FRUIT")){
-            word = fruitWords[new Random().nextInt(fruitWords.length)].toUpperCase();
+            word = fruitWords[(int) (Math.random() * fruitWords.length)].toUpperCase();
         }
     }
 
@@ -59,14 +73,11 @@ public class Hangman {
             if(blankWord.equals(word)){
                 System.out.println("You win!");
             }
-            if(wrongCounter == 5){
+            if(wrongCounter == 5 && (guessesLeft - wrongCounter == 0)){
                 System.out.println("You lose!");
+                System.out.println("The word was: " + word);
             }
         }
-
-
-
-
 
     }
 
@@ -88,6 +99,9 @@ public class Hangman {
         } else if(guess.length() > 1){
             if(guess.equals(word)){
                 blankWord = guess;
+            } else {
+                wrongCounter++;
+                wrongGuesses += guess + " ";
             }
         }
 
