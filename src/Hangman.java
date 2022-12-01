@@ -34,34 +34,51 @@ public class Hangman {
         }
     }
 
-    public void play(){
+    public void play() {
         randomWord();
         wrongGuesses = "";
-        blankWord =  "";
+        blankWord = "";
         wrongCounter = 0;
-        for (int i = 1; i <= word.length(); i++){
+        for (int i = 1; i <= word.length(); i++) {
             blankWord += "-";
         }
-        while(wrongCounter <= 5) {
-            hangman(0);
-            System.out.println("Your hint is: " + topic);
-            System.out.println("The word is: " + blankWord);
-            System.out.println("Enter your guess: (wrong guesses: " + wrongGuesses + ")");
+        hangman(0);
+
+
+        while(wrongCounter <= 5 || !(blankWord.contains("-"))) {
+            System.out.println("Your topic is: " + topic);
+            System.out.println("Your word is: " + blankWord);
+            System.out.println("Enter a character or a guess: ");
             String guess = scan.nextLine();
             guessCheck(guess);
+            hangman(wrongCounter);
         }
+
+
+
     }
 
-    private void guessCheck(String guess){
+    private void guessCheck(String guess) {
         guess = guess.toUpperCase();
-        if(word.contains(guess)){
-            blankWord = blankWord.replace(word.substring(word.indexOf(guess), word.indexOf(guess) + 1), guess);
-        } else if(!word.contains(guess)){
+
+
+        if (word.contains(guess)) {
+            for(int i = 0; i < word.length(); i ++){
+
+                if(word.substring(i, i +1).equals(guess)){
+
+                    int index = i;
+                    blankWord = blankWord.substring(0, index) + guess + blankWord.substring(index + 1);
+
+                }
+            }
+        } else {
             wrongGuesses += guess;
             wrongCounter++;
         }
-        System.out.println(blankWord);
-    }
+            System.out.println(blankWord);
+        }
+
 
     public void hangman(int numWrong) {
         if (numWrong == 0) {
