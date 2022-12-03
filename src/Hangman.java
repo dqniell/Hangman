@@ -61,7 +61,7 @@ public class Hangman {
         hangman(0);
 
 
-        while(wrongCounter <= 5 && !(blankWord.equals(word))) {
+        while(wrongCounter < 5 && !(blankWord.equals(word))) {
             System.out.println("Your topic is: " + topic);
             System.out.println("Your word is: " + blankWord);
             System.out.println("Wrong guesses: " + wrongGuesses);
@@ -74,6 +74,8 @@ public class Hangman {
                 System.out.println("You win!");
             }
             if(wrongCounter == 5 && (guessesLeft - wrongCounter == 0)){
+                System.out.println("Wrong guesses: " + wrongGuesses);
+                System.out.println("Limbs left: " + (guessesLeft-wrongCounter));
                 System.out.println("You lose!");
                 System.out.println("The word was: " + word);
             }
