@@ -22,14 +22,13 @@ public class Hangman {
         guessesLeft = 0;
     }
 
-    public Hangman(String[] subwords) {
-        topic = "";
+    public Hangman(String topic) {
+        this.topic = topic;
         word = "";
         blankWord = "";
         wrongGuesses = "";
         wrongCounter = 0;
         guessesLeft = 0;
-        subjWords = subwords;
     }
 
     Scanner scan = new Scanner(System.in);
@@ -47,10 +46,30 @@ public class Hangman {
         } else if(topic.equals("FRUIT")){
             word = fruitWords[(int) (Math.random() * fruitWords.length)].toUpperCase();
         }
+
     }
 
-    public void play() {
-        randomWord();
+    private void randomWord(String userTopic){
+        userTopic = userTopic.toUpperCase();
+        if(userTopic.equals("SCHOOL SUBJECT")){
+            word = subjWords[(int) (Math.random() * subjWords.length)].toUpperCase();
+        } else if(userTopic.equals("COLOR")){
+            word = colorWords[(int) (Math.random() * colorWords.length)].toUpperCase();
+        } else if(userTopic.equals("HOLIDAY")){
+            word = holidayWords[(int) (Math.random() * holidayWords.length)].toUpperCase();
+        } else if(userTopic.equals("ANIMAL")){
+            word = animalWords[(int) (Math.random() * animalWords.length)].toUpperCase();
+        } else if(userTopic.equals("FRUIT")){
+            word = fruitWords[(int) (Math.random() * fruitWords.length)].toUpperCase();
+        }
+    }
+
+    public void play(int userChoice) {
+        if (userChoice == 1) {
+            randomWord();
+        } else {
+            randomWord(topic);
+        }
         wrongGuesses = "";
         blankWord = "";
         wrongCounter = 0;
@@ -58,7 +77,7 @@ public class Hangman {
         for (int i = 1; i <= word.length(); i++) {
             blankWord += "-";
         }
-        hangman(0);
+        System.out.println(hangmanPrinter(0));
 
 
         while(wrongCounter < 5 && !(blankWord.equals(word))) {
@@ -69,7 +88,7 @@ public class Hangman {
             System.out.print("Enter a character or a guess: ");
             String guess = scan.nextLine();
             guessCheck(guess);
-            hangman(wrongCounter);
+            System.out.println(hangmanPrinter(wrongCounter));
             if(blankWord.equals(word)){
                 System.out.println("You win!");
             }
@@ -106,83 +125,23 @@ public class Hangman {
                 wrongGuesses += guess + " ";
             }
         }
-
     }
 
-
-    public void hangman(int numWrong) {
+    public String hangmanPrinter
+            (int numWrong) {
         if (numWrong == 0) {
-            System.out.println("   ____________");
-            System.out.println("   |          |");
-            System.out.println("   |");
-            System.out.println("   |");
-            System.out.println("   |");
-            System.out.println("   |");
-            System.out.println("   |");
-            System.out.println("   | ");
-            System.out.println("___|___");
+            return "   ____________\n   |          |\n   |\n   |\n   |\n   |\n   |\n   | \n___|___";
+        }else if(numWrong == 1){
+            return "   ____________\n   |          _|_\n   |         /   \\\n   |        |     |\n   |         \\_ _/\n   |\n   |\n   |\n___|___";
+        }else if(numWrong == 2){
+            return "   ____________\n   |          _|_\n   |         /   \\\n   |        |     |\n   |         \\_ _/\n   |           |\n   |           |\n   |\n___|___";
+        }else if(numWrong == 3){
+            return "   ____________\n   |          _|_\n   |         /   \\\n   |        |     |\n   |         \\_ _/\n   |           |\n   |           |\n   |          /  \n___|___      /   ";
+        }else if(numWrong == 4){
+            return "   ____________\n   |          _|_\n   |         /   \\\n   |        |     |\n   |         \\_ _/\n   |           |\n   |           |\n   |          / \\ \n___|___      /   \\";
+        } else {
+            return "   ____________\n   |          _|_\n   |         /   \\\n   |        |     |\n   |         \\_ _/\n   |          _|_\n   |         / | \\\n   |          / \\ \n___|___      /   \\";
         }
-
-        if(numWrong == 1){
-            System.out.println("   ____________");
-            System.out.println("   |          _|_");
-            System.out.println("   |         /   \\");
-            System.out.println("   |        |     |");
-            System.out.println("   |         \\_ _/");
-            System.out.println("   |");
-            System.out.println("   |");
-            System.out.println("   |");
-            System.out.println("___|___");
-        }
-
-        if(numWrong == 2){
-            System.out.println("   ____________");
-            System.out.println("   |          _|_");
-            System.out.println("   |         /   \\");
-            System.out.println("   |        |     |");
-            System.out.println("   |         \\_ _/");
-            System.out.println("   |           |");
-            System.out.println("   |           |");
-            System.out.println("   |");
-            System.out.println("___|___");
-        }
-
-        if(numWrong == 3){
-            System.out.println("   ____________");
-            System.out.println("   |          _|_");
-            System.out.println("   |         /   \\");
-            System.out.println("   |        |     |");
-            System.out.println("   |         \\_ _/");
-            System.out.println("   |           |");
-            System.out.println("   |           |");
-            System.out.println("   |          /  ");
-            System.out.println("___|___      /   ");
-        }
-
-        if(numWrong == 4){
-            System.out.println("   ____________");
-            System.out.println("   |          _|_");
-            System.out.println("   |         /   \\");
-            System.out.println("   |        |     |");
-            System.out.println("   |         \\_ _/");
-            System.out.println("   |           |");
-            System.out.println("   |           |");
-            System.out.println("   |          / \\ ");
-            System.out.println("___|___      /   \\");
-        }
-
-        if(numWrong == 5){
-            System.out.println("   ____________");
-            System.out.println("   |          _|_");
-            System.out.println("   |         /   \\");
-            System.out.println("   |        |     |");
-            System.out.println("   |         \\_ _/");
-            System.out.println("   |          _|_");
-            System.out.println("   |         / | \\");
-            System.out.println("   |          / \\ ");
-            System.out.println("___|___      /   \\");
-        }
-
     }
 }
 
