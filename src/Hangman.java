@@ -33,7 +33,7 @@ public class Hangman {
 
     Scanner scan = new Scanner(System.in);
 
-    private void randomWord(){
+    private void randomWord() {
         topic = topicList[(int) (Math.random() * topicList.length)].toUpperCase();
         if(topic.equals("SCHOOL SUBJECT")){
             word = subjWords[(int) (Math.random() * subjWords.length)].toUpperCase();
@@ -49,7 +49,7 @@ public class Hangman {
 
     }
 
-    private void randomWord(String userTopic){
+    private void randomWord(String userTopic) {
         userTopic = userTopic.toUpperCase();
         if(userTopic.equals("SCHOOL SUBJECT")){
             word = subjWords[(int) (Math.random() * subjWords.length)].toUpperCase();
@@ -64,7 +64,8 @@ public class Hangman {
         }
     }
 
-    public void play(int userChoice) {
+    public void play(int userChoice)
+    {
         if (userChoice == 1) {
             randomWord();
         } else {
@@ -109,7 +110,8 @@ public class Hangman {
                 for (int i = 0; i < word.length(); i++) {
                     if (word.substring(i, i + 1).equals(guess)) {
                         int index = i;
-                        blankWord = blankWord.substring(0, index) + guess + blankWord.substring(index + 1);
+                        blankWord = blankWord.substring(0, index) +
+                                guess + blankWord.substring(index + 1);
                     }
                 }
             } else {
@@ -127,8 +129,7 @@ public class Hangman {
         }
     }
 
-    public String hangmanPrinter
-            (int numWrong) {
+    public String hangmanPrinter(int numWrong) {
         if (numWrong == 0) {
             return "   ____________\n   |          |\n   |\n   |\n   |\n   |\n   |\n   | \n___|___";
         }else if(numWrong == 1){
