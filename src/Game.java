@@ -17,8 +17,7 @@ public class Game {
                 game1 = new Hangman();
                 ansAsNum = 1;
             } else {
-                System.out.print("Pick from the following topics " +
-                        "(school subject, color, holiday, animal, fruit): ");
+                System.out.print("Pick from the following topics " + "(school subject, color, holiday, animal, fruit): ");
                 String topic = scan.nextLine();
                 game1 = new Hangman(topic);
                 ansAsNum = 2;

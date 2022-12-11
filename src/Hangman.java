@@ -110,8 +110,7 @@ public class Hangman {
                 for (int i = 0; i < word.length(); i++) {
                     if (word.substring(i, i + 1).equals(guess)) {
                         int index = i;
-                        blankWord = blankWord.substring(0, index) +
-                                guess + blankWord.substring(index + 1);
+                        blankWord = blankWord.substring(0, index) + guess + blankWord.substring(index + 1);
                     }
                 }
             } else {
